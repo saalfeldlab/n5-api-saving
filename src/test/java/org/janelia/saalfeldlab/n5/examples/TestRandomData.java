@@ -19,7 +19,7 @@ public class TestRandomData
 {
 	public static void main( String[] args )
 	{
-		final URI uri = URI.create( "file://Users/preibischs/testdataset.n5" );
+		final URI uri = URI.create( "/Users/preibischs/testdataset.n5" );
 
 		final ArrayList< ViewId > viewIds = new ArrayList<>();
 		viewIds.add( new ViewId(0, 0) );
