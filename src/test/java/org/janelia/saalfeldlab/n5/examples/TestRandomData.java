@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.janelia.saalfeldlab.n5.DataType;
 import org.janelia.saalfeldlab.n5.GzipCompression;
+import org.janelia.saalfeldlab.n5.N5Writer;
 import org.janelia.saalfeldlab.n5.universe.N5Factory;
 import org.janelia.saalfeldlab.n5.universe.N5Factory.StorageFormat;
 import org.janelia.steffi.SaveN5Api;
@@ -36,8 +37,10 @@ public class TestRandomData
 		for ( int s = 0; s < downsamplings.length; ++s )
 			computeBlockSize.put( s, blockSize );
 
+		final N5Writer n5 = new N5Factory().openWriter( StorageFormat.N5, uri );
+
 		final SchemeCreatorBdvN5 creator = new SchemeCreatorBdvN5(
-				() -> new N5Factory().openWriter(StorageFormat.N5, uri ),
+				() -> n5,
 				computeBlockSize,
 				viewIds,
 				DataType.UINT16,
@@ -51,5 +54,7 @@ public class TestRandomData
 				() -> new RandomIntensityS0Block() );
 
 		save.executeMultiThreaded( 16 );
+
+		n5.close();
 	}
 }

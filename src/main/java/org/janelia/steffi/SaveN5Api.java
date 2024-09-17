@@ -1,6 +1,6 @@
 package org.janelia.steffi;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +35,7 @@ public class SaveN5Api
 		creator.setup();
 
 		// get all jobs for s0
-		final ArrayList<long[][]> gridS0 = creator.assembleJobs( 0 );
+		final List<long[][]> gridS0 = creator.assembleJobs( 0 );
 
 		//
 		// Save full resolution dataset (s0)
@@ -71,7 +71,7 @@ public class SaveN5Api
 		{
 			final int s = level;
 
-			final ArrayList<long[][]> grid = creator.assembleJobs( level );
+			final List<long[][]> grid = creator.assembleJobs( level );
 
 			System.out.println( "Downsampling level s" + s + "... " );
 			System.out.println( "Number of compute blocks: " + grid.size() );
@@ -118,8 +118,6 @@ public class SaveN5Api
 		final N5Writer n5 = creator.getN5WriterSupplier().get();
 
 		N5Utils.saveNonEmptyBlock( img, n5, dataset, gridBlock[ 2 ], Views.iterable( img ).firstElement().createVariable() );
-
-		n5.close();
 	}
 }
 

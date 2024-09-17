@@ -69,8 +69,6 @@ public class SchemeCreatorBdvN5 extends SchemeCreator implements Serializable
 		for ( final ViewId viewId : viewIds )
 			viewIdToMrInfo.put( viewId, setupBdvDatasetsN5(n5, viewId, dataType, dimensions.get( viewId.getViewSetupId() ), compression, blockSize, downsamplings));
 
-		n5.close();
-
 		return true;
 	}
 

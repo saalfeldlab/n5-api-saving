@@ -2,6 +2,7 @@ package org.janelia.steffi.metadata;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -37,7 +38,7 @@ public abstract class SchemeCreator implements Serializable
 
 	public abstract int[] relativeDownsampling( long[][] gridBlock, int level );
 
-	public abstract ArrayList<long[][]> assembleJobs( final int level );
+	public abstract List<long[][]> assembleJobs( final int level );
 
 	public abstract int numDownsamplingLevels();
 
