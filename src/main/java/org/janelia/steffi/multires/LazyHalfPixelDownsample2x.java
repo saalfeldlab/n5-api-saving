@@ -29,6 +29,7 @@ import net.imglib2.Interval;
 import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessible;
 import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.algorithm.lazy.Lazy;
 import net.imglib2.exception.IncompatibleTypeException;
 import net.imglib2.img.basictypeaccess.AccessFlags;
 import net.imglib2.iterator.IntervalIterator;
@@ -184,7 +185,7 @@ public class LazyHalfPixelDownsample2x<T extends RealType<T> & NativeType<T>> im
 						type.createVariable() );
 
 		final RandomAccessibleInterval<T> downsampled =
-				Views.translate( Lazy.process( new FinalInterval( dim ), blockSize, type.createVariable(), AccessFlags.setOf(), downsampling ), min );
+				Views.translate( Lazy.generate( new FinalInterval( dim ), blockSize, type.createVariable(), AccessFlags.setOf(), downsampling ), min );
 
 		return downsampled;
 	}
