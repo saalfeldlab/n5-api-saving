@@ -106,7 +106,7 @@ public class SchemeCreatorBdvN5 extends SchemeCreator implements Serializable
 		{
 			final List<long[][]> grid = Grid.create(
 					viewIdToMrInfo.get( viewId )[ level ].dimensions,
-					computeBlockSize.get( level ),
+					blockSizePerLevel.get( level ),
 					blockSize);
 	
 			// add timepointId and ViewSetupId & dimensions to the gridblock

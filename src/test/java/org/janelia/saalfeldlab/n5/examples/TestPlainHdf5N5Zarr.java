@@ -21,20 +21,20 @@ public class TestPlainHdf5N5Zarr
 		final int[] blockSize = new int[] { 128,128,64 };
 		final int[][] downsamplings = new int[][] { { 1,1,1 }, { 2,2,1 }, { 4,4,2 } };
 
-		final Map< Integer, int[] > computeBlockSize = new HashMap<>();
+		final Map< Integer, int[] > blockSizePerLevel = new HashMap<>();
 		for ( int s = 0; s < downsamplings.length; ++s )
-			computeBlockSize.put( s, blockSize );
+			blockSizePerLevel.put( s, blockSize );
 
 		for ( final StorageFormat sf : StorageFormat.values() )
 		{
 			System.out.println( "\nWriting: " + sf.toString() );
 
-			final N5Writer n5 = new N5Factory().openWriter( sf, URI.create( "/Users/preibischs/test_simple." + sf.toString().toLowerCase() ) );
+			final N5Writer n5 = new N5Factory().openWriter( sf, URI.create( "/home/john/tests/n5-api-saving/test-simple." + sf.toString().toLowerCase() ) );
 
 			final PlainHdf5N5ZarrScheme creator = new PlainHdf5N5ZarrScheme(
 					() -> n5,
 					(level) -> "myDataset/s" + level,
-					computeBlockSize,
+					blockSizePerLevel,
 					DataType.UINT16,
 					dimensions,
 					new GzipCompression( 1 ),

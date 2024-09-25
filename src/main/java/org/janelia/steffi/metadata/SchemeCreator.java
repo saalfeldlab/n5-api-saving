@@ -13,11 +13,11 @@ public abstract class SchemeCreator implements Serializable
 {
 	private static final long serialVersionUID = -1412462576026211843L;
 
-	final Map< Integer, int[] > computeBlockSize; // downsampling level to computeBlockSize)
+	final Map< Integer, int[] > blockSizePerLevel; // downsampling level to computeBlockSize)
 
-	public SchemeCreator( final Map< Integer, int[] > computeBlockSize )
+	public SchemeCreator( final Map< Integer, int[] > blockSizePerLevel )
 	{
-		this.computeBlockSize = computeBlockSize;
+		this.blockSizePerLevel = blockSizePerLevel;
 	}
 
 	/**
