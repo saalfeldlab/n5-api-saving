@@ -84,6 +84,7 @@ public class SaveN5Api
 				myPool.submit(() -> grid.parallelStream().forEach(
 						gridBlock ->
 						{
+							// make this function customizable -JB 
 							MultiResTools.writeDownsampledBlock(creator, s, s-1, gridBlock );
 
 							System.out.println( "s" + s + ": " + progress.incrementAndGet() + "/" + grid.size() + " done." );
