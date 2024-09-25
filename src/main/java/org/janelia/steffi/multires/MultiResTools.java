@@ -36,8 +36,8 @@ public class MultiResTools
 				final DataType dataType,
 				final int[] relativeDownsampling,
 				final int[] absoluteDownsampling,
-				final int[] blockSize )
-		{
+				final int[] blockSize) {
+
 			this.dataset = dataset;
 			this.dimensions = dimensions;
 			this.dataType = dataType;
@@ -50,20 +50,25 @@ public class MultiResTools
 	public static MultiResolutionLevelInfo[] setupMultiResolutionPyramid(
 			final N5Writer driverVolumeWriter,
 			final Function<Integer, String> levelToDataset,
+			final BiFunction<ViewId, Integer, String> viewIdToDataset,
 			final DataType dataType,
 			final long[] dimensionsS0,
 			final Compression compression,
 			final int[] blockSize,
-			final int[][] downsamplings )
-	{
+			final int[][] downsamplings) {
+
+		final double[] defaultResolution = new double[dimensionsS0.length];
+		Arrays.fill(defaultResolution, 1.0);
+
 		return setupMultiResolutionPyramid(
 				driverVolumeWriter,
 				null,
-				(viewId, level) -> levelToDataset.apply( level ),
+				(viewId, level) -> levelToDataset.apply(level),
 				dataType,
 				dimensionsS0,
 				compression,
 				blockSize,
+				defaultResolution,
 				downsamplings);
 	}
 
@@ -75,6 +80,56 @@ public class MultiResTools
 			final long[] dimensionsS0,
 			final Compression compression,
 			final int[] blockSize,
+			final int[][] downsamplings) {
+
+		final double[] defaultResolution = new double[dimensionsS0.length];
+		Arrays.fill(defaultResolution, 1.0);
+
+		return setupMultiResolutionPyramid(
+				driverVolumeWriter,
+				viewId,
+				viewIdToDataset,
+				dataType,
+				dimensionsS0,
+				compression,
+				blockSize,
+				defaultResolution,
+				downsamplings);
+	}
+
+	public static MultiResolutionLevelInfo[] setupMultiResolutionPyramid(
+			final N5Writer driverVolumeWriter,
+			final Function<Integer, String> levelToDataset,
+			final DataType dataType,
+			final long[] dimensionsS0,
+			final Compression compression,
+			final int[] blockSize,
+			final int[][] downsamplings) {
+
+		final double[] defaultResolution = new double[dimensionsS0.length];
+		Arrays.fill(defaultResolution, 1.0);
+
+		return setupMultiResolutionPyramid(
+				driverVolumeWriter,
+				null,
+				(viewId, level) -> levelToDataset.apply(level),
+				dataType,
+				dimensionsS0,
+				compression,
+				blockSize,
+				defaultResolution,
+				downsamplings);
+	}
+
+	public static MultiResolutionLevelInfo[] setupMultiResolutionPyramid(
+			final N5Writer driverVolumeWriter,
+			final ViewId viewId,
+			final BiFunction<ViewId, Integer, String> viewIdToDataset,
+			final DataType dataType,
+			final long[] dimensionsS0,
+			final Compression compression,
+			final int[] blockSize,
+			final double[] baseResolution,
 			final int[][] downsamplings )
 	{
 		final MultiResolutionLevelInfo[] mrInfo = new MultiResolutionLevelInfo[ downsamplings.length];
