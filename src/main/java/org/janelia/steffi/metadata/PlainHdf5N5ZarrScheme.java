@@ -30,14 +30,14 @@ public class PlainHdf5N5ZarrScheme extends SchemeCreator implements Serializable
 	public PlainHdf5N5ZarrScheme(
 			final Supplier< N5Writer > n5WriterSupplier,
 			final Function<Integer, String > levelToDataset,
-			final Map<Integer, int[]> computeBlockSize,
+			final Map<Integer, int[]> blockSizePerLevel,
 			final DataType dataType,
 			final long[] dimensions,
 			final Compression compression,
 			final int[] blockSize,
-			final int[][] downsamplings  )
+			final int[][] downsamplings )
 	{
-		super(computeBlockSize);
+		super(blockSizePerLevel);
 		this.n5WriterSupplier = n5WriterSupplier;
 		this.levelToDataset = levelToDataset;
 		this.dataType = dataType;
@@ -88,7 +88,7 @@ public class PlainHdf5N5ZarrScheme extends SchemeCreator implements Serializable
 	{
 		return Grid.create(
 				mrInfo[ level ].dimensions,
-				computeBlockSize.get( level ),
+				blockSizePerLevel.get( level ),
 				blockSize);
 	}
 
