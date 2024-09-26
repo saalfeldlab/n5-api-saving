@@ -22,7 +22,6 @@ public abstract class SchemeCreator implements Serializable
 
 	/**
 	 * sets up the datasets and metadata
-	 * @return - data necessary to write s0 and multi-resolution pyramid
 	 */
 	public abstract boolean setup();
 
